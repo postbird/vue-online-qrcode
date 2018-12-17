@@ -1,4 +1,5 @@
 # vue-online-qrcode
+<<<<<<< HEAD
 
 ## Project setup
 ```
@@ -27,3 +28,6 @@ yarn run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+vue实现的在线多二维码生成服务
+>>>>>>> 2c040d697fbd9fb33ba28bb659ace61aef117bce
