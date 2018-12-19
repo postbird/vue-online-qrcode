@@ -1,4 +1,4 @@
 // vue.config.js
 module.exports = {
-    baseUrl: './vue-online-qrcode-site/',
+    baseUrl: './vue-online-qrcode/',
 }
