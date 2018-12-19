@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
-    <input type="text" placeholder="标题" class="title" v-model="title">
-    <textarea class="doc" placeholder="链接内容" v-model="link" ></textarea>
-    <button class="inverse btn" @click="clickHandle">生成二维码</button>
+    <input type="text" placeholder="title" class="title" v-model="title">
+    <textarea class="doc" placeholder="qrcode content" v-model="link" ></textarea>
+    <button class="inverse btn" @click="clickHandle">Create</button>
   </div>
 </template>
 <script>
@@ -17,7 +17,7 @@
       clickHandle() {
         try{
           if(this.link.length === 0) {
-            return alert('创建失败：链接不能为空');
+            return alert('Fail：Empty title or empty content');
           }
           if(this.title.length === 0) {
             this.title = this.link;
@@ -27,9 +27,11 @@
             link: this.link,
             timestamp: Date.now(),
           };
-          this.$emit('createQrcode', param)
+          this.$emit('createQrcode', param);
+          this.link = '';
+          return this.title = '';
         }catch (err) {
-           alert('创建失败：' + err);
+           alert('Fail：' + err);
         }
       }
     }

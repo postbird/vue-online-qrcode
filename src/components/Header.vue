@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h2>在线多 QRCODE 生成</h2>
+    <h2>Online Multiple QRCode</h2>
   </div>
 </template>
 
