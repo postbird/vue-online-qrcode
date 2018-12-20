@@ -84,6 +84,8 @@
   font-size: 20px;
 }
 .title {
+  font-size: 20px;
+  font-weight: 600;
   width: 95%;
   text-overflow: ellipsis;
   overflow: hidden;

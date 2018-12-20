@@ -2,7 +2,10 @@
   <div class="wrapper">
     <input type="text" placeholder="title" class="title" v-model="title">
     <textarea class="doc" placeholder="qrcode content" v-model="link" ></textarea>
-    <button class="inverse btn" @click="clickHandle">Create</button>
+    <div class="action-wrapper">
+      <button class="inverse btn" @click="clickHandle">Create</button>
+      <button class="primary btn load-btn" @click="$emit('loadQrcodeList')">Load From Storage</button>
+    </div>
   </div>
 </template>
 <script>
@@ -41,6 +44,12 @@
   .wrapper{
     width: 100%;
   }
+  .action-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
   .btn {
     float: left;
   }
@@ -51,5 +60,8 @@
   }
   .title {
     width: 100%;
+  }
+  .load-btn {
+    float: right;
   }
 </style>

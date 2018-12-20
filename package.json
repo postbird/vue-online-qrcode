@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@chenfengyuan/vue-qrcode": "^1.0.0",
+    "store2": "^2.7.1",
     "vue": "^2.5.17"
   },
   "devDependencies": {
