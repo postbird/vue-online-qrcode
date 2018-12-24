@@ -1,7 +1,12 @@
 <template>
   <div class="outter">
     <div class="wrapper">
-      <VueQrcode :value="item.link" :options="{ width: 300, height: 300 }"></VueQrcode>
+      <div class="qrcode-wrapper">
+        <div @click="qrcodeClickHandle">
+          <VueQrcode :value="item.link" :options="{ width: 300, height: 300 }" ></VueQrcode>
+        </div>
+        <div class="qrcode-mask" v-show="showMask" @click="qrcodeMaskClickHandle"></div>
+      </div>
       <!--<div class="line"></div>-->
       <h3 class="title">{{item.title}}</h3>
       <div class="line"></div>
@@ -21,16 +26,19 @@
 
 <script>
   import Swal from 'sweetalert2';
+  import EventEmitter from 'EventEmitter';
+  const EM = new EventEmitter();
   import VueQrcode from '@chenfengyuan/vue-qrcode';
   export default {
     props:['item'],
     components: {VueQrcode},
-    data() {return {date: this.item.timestamp}},
+    data() {return {date: '', time: '', showMask: false}},
     created() {
       this.createQrcode();
       const d = new Date(this.item.timestamp);
       this.date = `${d.toLocaleDateString()}`;
       this.time = d.toLocaleTimeString();
+      this.initQrcodeMaskEvent();
     },
     methods: {
       createQrcode() {
@@ -42,7 +50,7 @@
       deleteClickHandle() {
           Swal({
             title: 'Confirm delete?',
-            type: 'Danger',
+            type: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -53,7 +61,30 @@
               }
           })
 
-      }
+      },
+      initQrcodeMaskEvent() {
+        // emitter qrcode mask event
+          EM.on('SHOW_QROCDE_MASK', (timestamp) => {
+            if(timestamp === this.item.timestamp) return false;
+            this.showMask = true;
+          });
+          EM.on('HIDE_QROCDE_MASK', (timestamp) => {
+              this.showMask = false;
+          });
+      },
+      qrcodeClickHandle() {
+          if (this.showMaskEMHandled) {
+            // if has been showed mask, need to hide all masks
+            this.showMaskEMHandled = false;
+            return EM.emit('HIDE_QROCDE_MASK', this.item.timestamp);
+          }
+          this.showMaskEMHandled = true; // showed mask flag
+          EM.emit('SHOW_QROCDE_MASK', this.item.timestamp);
+      },
+      qrcodeMaskClickHandle() {
+          EM.emit('HIDE_QROCDE_MASK', this.item.timestamp);
+          EM.emit('SHOW_QROCDE_MASK', this.item.timestamp);
+      },
     }
   }
 </script>
@@ -78,6 +109,19 @@
   flex-direction: column;
   align-items: center;
   /*background-color: red;*/
+}
+.qrcode-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+.qrcode-mask {
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom: 0;
+  background-color: #212121;
+  opacity: 0.97;
 }
 .bottom {
   width: 100%;

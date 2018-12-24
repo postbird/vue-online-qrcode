@@ -158,7 +158,7 @@ export default {
       Swal({
           title: 'Are you sure?',
           text: "The operation will replace the current List!",
-          type: 'Danger',
+          type: 'question',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
