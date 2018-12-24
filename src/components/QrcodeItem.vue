@@ -64,13 +64,15 @@
       },
       initQrcodeMaskEvent() {
         // emitter qrcode mask event
-          EM.on('SHOW_QROCDE_MASK', (timestamp) => {
-            if(timestamp === this.item.timestamp) return false;
-            this.showMask = true;
-          });
-          EM.on('HIDE_QROCDE_MASK', (timestamp) => {
-              this.showMask = false;
-          });
+        EM.on('SHOW_QROCDE_MASK', (timestamp) => {
+          this.showMaskEMHandled = true;
+          if(timestamp === this.item.timestamp) return false;
+          this.showMask = true;
+        });
+        EM.on('HIDE_QROCDE_MASK', (timestamp) => {
+            this.showMask = false;
+            this.showMaskEMHandled = false;
+        });
       },
       qrcodeClickHandle() {
           if (this.showMaskEMHandled) {
