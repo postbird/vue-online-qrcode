@@ -9,7 +9,8 @@
   </div>
 </template>
 <script>
-  export default {
+    import Swal from 'sweetalert2';
+    export default {
     data() {
       return {
         link: '',
@@ -20,7 +21,7 @@
       clickHandle() {
         try{
           if(this.link.length === 0) {
-            return alert('Fail：Empty title or empty content');
+            return Swal('Fail：Empty title or empty content');
           }
           if(this.title.length === 0) {
             this.title = this.link;
@@ -34,7 +35,7 @@
           this.link = '';
           return this.title = '';
         }catch (err) {
-           alert('Fail：' + err);
+           Swal('Fail：' + err);
         }
       }
     }

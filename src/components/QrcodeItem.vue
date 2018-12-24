@@ -20,6 +20,7 @@
 </template>
 
 <script>
+  import Swal from 'sweetalert2';
   import VueQrcode from '@chenfengyuan/vue-qrcode';
   export default {
     props:['item'],
@@ -39,10 +40,19 @@
         this.$emit('editItem', {timestamp: this.item.timestamp});
       },
       deleteClickHandle() {
-        const confirmRes = confirm('Confirm delete?');
-        if (confirmRes) {
-          this.$emit('deleteItem', this.item)
-        }
+          Swal({
+            title: 'Confirm delete?',
+            type: 'Danger',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+          }).then((result) => {
+              if (result.value) {
+                this.$emit('deleteItem', this.item)
+              }
+          })
+
       }
     }
   }

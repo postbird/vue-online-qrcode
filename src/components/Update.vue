@@ -8,6 +8,7 @@
   </div>
 </template>
 <script>
+  import Swal from 'sweetalert2';
   export default {
       props:['isUpdate', 'activeQrcode'],
       data() {
@@ -24,7 +25,7 @@
           clickHandle() {
               try{
                   if(this.link.length === 0) {
-                      return alert('创建失败：链接不能为空');
+                      return Swal('Fail：Empty title or empty content');
                   }
                   if(this.title.length === 0) {
                       this.title = this.link;
@@ -36,21 +37,28 @@
                   };
                   this.$emit('createQrcode', param)
               }catch (err) {
-                  alert('创建失败：' + err);
+                  Swal('Fail：' + err);
               }
-          },
-          updateClickHandle() {
-
           },
           cancelClickHandle() {
             this.$emit('cancel', {})
           },
           updateClickHandle() {
+              if(this.link.length === 0) {
+                  return Swal('Fail：Empty title or empty content');
+              }
+              if(this.title.length === 0) {
+                  this.title = this.link;
+              }
+              const param = {
+                  title: this.title,
+                  link: this.link,
+                  timestamp: Date.now(),
+              };
             this.$emit('updateQrcode', {
               ...this.activeQrcode,
-              title: this.title,
-              link: this.link,
-            })
+                ...param
+            });
           }
       }
   }

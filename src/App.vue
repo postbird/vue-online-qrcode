@@ -30,6 +30,11 @@ import Update from './components/Update.vue';
 import Header from './components/Header.vue';
 import QrcodeList from './components/QrcodeList.vue';
 import Store from 'store2';
+import Swal from 'sweetalert2';
+import EventEmitter from 'EventEmitter';
+
+const EM = new EventEmitter();
+
 const QRCODE_STORE_PRE_KEY = 'QRCODE_LIST_';
 export default {
   name: 'app',
@@ -45,6 +50,9 @@ export default {
     QrcodeList,
     Update
   },
+  created() {
+
+  },
   computed: {
     update() {
       return !!this.activeQrcode;
@@ -54,11 +62,11 @@ export default {
     // click Create Btn handle
     createQrcodeHandle(param){
       if(!param || !param.title || !param.link) {
-          return alert('Fail：Empty title or empty content');
+          return Swal('Fail：Empty title or empty content');
       }
       const filterTime = this.filterQrcodeList(param);
       if(filterTime) {
-        return alert(`Fail: Existed! Create Time: ${this.getDateTimeFromTimestamp(filterTime)} `);
+        return Swal(`Fail: Existed! Create Time: ${this.getDateTimeFromTimestamp(filterTime)} `);
       }
       // reset
       this.activeQrcode = null;
@@ -104,7 +112,7 @@ export default {
       for (let i=0;i<len;i++) {
         const item = tmpList[i];
         if(item.title === param.title && item.link === param.link) {
-            return alert('Fail: Existed');
+            return Swal('Fail: Existed');
         }
         if(item.timestamp === param.timestamp) {
           tmpList[i].title = param.title;
@@ -147,13 +155,22 @@ export default {
     },
     // load list from storage
     loadQrcodeListHandle() {
-      const res = confirm('The operation will replace the current List!');
-      if (res) {
-        const date = new Date();
-        const key = QRCODE_STORE_PRE_KEY + date.toLocaleDateString();
-        const list = Store.get(key);
-        if (list) this.qrcodeList = list;
-      }
+      Swal({
+          title: 'Are you sure?',
+          text: "The operation will replace the current List!",
+          type: 'Danger',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes,Load'
+      }).then((result) => {
+          if (result.value) {
+            const date = new Date();
+            const key = QRCODE_STORE_PRE_KEY + date.toLocaleDateString();
+            const list = Store.get(key);
+            if (list) this.qrcodeList = list;
+          }
+      })
     }
   }
 }
