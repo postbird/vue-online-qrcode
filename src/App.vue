@@ -18,7 +18,7 @@
         ></Update>
       </div>
       <div class="col-md-12">
-        <QrcodeList :list="qrcodeList" @editItem="editItemHandle" @deleteItem="deleteItemHandle"></QrcodeList>
+        <QrcodeList :list="qrcodeList" @editItem="editItemHandle" @deleteItem="deleteItemHandle" @dragListEnd="dragListEndHandle"></QrcodeList>
       </div>
     </div>
   </div>
@@ -31,9 +31,7 @@ import Header from './components/Header.vue';
 import QrcodeList from './components/QrcodeList.vue';
 import Store from 'store2';
 import Swal from 'sweetalert2';
-import EventEmitter from 'EventEmitter';
 
-const EM = new EventEmitter();
 
 const QRCODE_STORE_PRE_KEY = 'QRCODE_LIST_';
 export default {
@@ -171,6 +169,11 @@ export default {
             if (list) this.qrcodeList = list;
           }
       })
+    },
+    // dragend handle
+    dragListEndHandle(list) {
+      this.qrcodeList = list;
+      this.saveToStorage();
     }
   }
 }

@@ -10,6 +10,7 @@
   "dependencies": {
     "@chenfengyuan/vue-qrcode": "^1.0.0",
     "EventEmitter": "^1.0.0",
+    "awe-dnd": "^0.3.4",
     "store2": "^2.7.1",
     "sweetalert2": "^7.33.1",
     "vue": "^2.5.17"
