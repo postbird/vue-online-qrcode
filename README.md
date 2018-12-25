@@ -28,3 +28,9 @@ Site:[https://postbird.gitee.io/vue-online-qrcode/](https://postbird.gitee.io/vu
 - 二维码可以拖拽排序（QR code can be dragged and sorted）
 
 - ...
+
+
+## License 
+
+MIT
+
