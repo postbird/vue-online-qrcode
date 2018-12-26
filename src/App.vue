@@ -40,8 +40,8 @@ import Store from 'store2';
 import Swal from 'sweetalert2';
 import Draggable from 'vuedraggable';
 
+import {QRCODE_STORE_PRE_KEY} from './config/constant';
 
-const QRCODE_STORE_PRE_KEY = 'QRCODE_LIST_';
 export default {
   name: 'app',
   data(){
@@ -166,7 +166,7 @@ export default {
       });
     },
     // load list from storage
-    loadQrcodeListHandle() {
+    loadQrcodeListHandle(datePram) {
       Swal({
           title: 'Are you sure?',
           text: "The operation will replace the current List!",
@@ -177,10 +177,19 @@ export default {
           confirmButtonText: 'Yes,Load'
       }).then((result) => {
           if (result.value) {
-            const date = new Date();
-            const key = QRCODE_STORE_PRE_KEY + date.toLocaleDateString();
+            console.log(datePram);
+            let date = new Date();
+            let keyDate = new Date(datePram).toLocaleDateString() || date.toLocaleDateString();
+            const key = QRCODE_STORE_PRE_KEY + keyDate;
             const list = Store.get(key);
-            if (list) this.qrcodeList = list;
+            if (list) {
+              this.qrcodeList = list;
+            } else {
+              Swal({
+                  title: 'List is Empty',
+                  type: 'warn',
+              });
+            }
           }
       })
     },
