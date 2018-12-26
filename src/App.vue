@@ -18,7 +18,13 @@
         ></Update>
       </div>
       <div class="col-md-12">
-        <QrcodeList :list="qrcodeList" @editItem="editItemHandle" @deleteItem="deleteItemHandle" @dragListEnd="dragListEndHandle"></QrcodeList>
+        <Draggable v-model="qrcodeList" >
+          <transition-group class="row">
+            <div class="col-md-3 color-item" v-for="(item, index) in qrcodeList" :key="item.timestamp" >
+              <QrcodeItem  :item="item" @editItem="editItemHandle"  @deleteItem="deleteItemHandle"></QrcodeItem>
+            </div>
+          </transition-group>
+        </Draggable>
       </div>
     </div>
   </div>
@@ -28,9 +34,11 @@
 import Add from './components/Add.vue';
 import Update from './components/Update.vue';
 import Header from './components/Header.vue';
-import QrcodeList from './components/QrcodeList.vue';
+// import QrcodeList from './components/NewQrcodeList.vue';
+import QrcodeItem from './components/QrcodeItem';
 import Store from 'store2';
 import Swal from 'sweetalert2';
+import Draggable from 'vuedraggable';
 
 
 const QRCODE_STORE_PRE_KEY = 'QRCODE_LIST_';
@@ -45,8 +53,10 @@ export default {
   components: {
     Add,
     Header,
-    QrcodeList,
-    Update
+    // QrcodeList,
+    Update,
+    Draggable,
+    QrcodeItem
   },
   created() {
 
@@ -55,6 +65,11 @@ export default {
     update() {
       return !!this.activeQrcode;
     }
+  },
+  updated() {
+    this.$nextTick(() => {
+      this.saveToStorage();
+    })
   },
   methods: {
     // click Create Btn handle
@@ -185,5 +200,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.color-item {
+  transition: transform .3s;
 }
 </style>
