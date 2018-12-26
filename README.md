@@ -29,6 +29,11 @@ Site:[https://postbird.gitee.io/vue-online-qrcode/](https://postbird.gitee.io/vu
 
 - ...
 
+## 更新日志（change log）
+
+- 2018-12-27:
+
+  - 修复无法更新二维码内容的问题 （Fix an issue where the QR code content could not be updated）
 
 ## License 
 
