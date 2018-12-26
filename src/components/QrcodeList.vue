@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="row">
       <div class="col-md-3 color-item" v-for="(item, index) in list" :key="index"v-dragging="{ item: item, list: list, group: 'list' }" >
-          <QrcodeItem  :item="item"   @editItem="editItemHandle"  @deleteItem="deleteItemHandle" ></QrcodeItem>
+          <QrcodeItem  :item="item"   @editItem="editItemHandle"  @deleteItem="deleteItemHandle"></QrcodeItem>
       </div>
     </div>
   </div>

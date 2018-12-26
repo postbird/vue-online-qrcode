@@ -44,20 +44,19 @@
             this.$emit('cancel', {})
           },
           updateClickHandle() {
-              if(this.link.length === 0) {
-                  return Swal('Fail：Empty title or empty content');
-              }
-              if(this.title.length === 0) {
-                  this.title = this.link;
-              }
-              const param = {
-                  title: this.title,
-                  link: this.link,
-                  timestamp: Date.now(),
-              };
+            if(this.link.length === 0) {
+                return Swal('Fail：Empty title or empty content');
+            }
+            if(this.title.length === 0) {
+                this.title = this.link;
+            }
+            const param = {
+                title: this.title,
+                link: this.link,
+            };
             this.$emit('updateQrcode', {
               ...this.activeQrcode,
-                ...param
+              ...param
             });
           }
       }

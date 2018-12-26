@@ -95,7 +95,6 @@ export default {
         const item = this.qrcodeList[i];
         if (item.timestamp === param.timestamp) {
           this.activeQrcode = item;
-          console.log(this.activeQrcode);
         }
       }
     },
