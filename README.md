@@ -35,7 +35,8 @@ Site:[https://postbird.gitee.io/vue-online-qrcode/](https://postbird.gitee.io/vu
 
   - 修复无法更新二维码内容的问题 （Fix an issue where the QR code content could not be updated）
   - 改用 `vuedraggable` 作为拖拽组件（Use `vuedraggable` as a drag component）
-  - 
+  - 可以选择日期加载历史缓存（You can choose date loading history cache）
+  
 ## License 
 
 MIT
